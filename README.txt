@@ -1,0 +1,8 @@
+I decided to break the problem into two big chunks of code. One is a custom split function that accounts for the fact that I main have commas surrounded by double quotes, and so instead of simply splitting on commas, it takes that into account and tokenizes each line from the file properly.
+The second big chunk of code simply works over the file. It assumes that the first line would contain the headers for the columns and would use that to deduce the correct number of columns.
+The program checks whether or not each new non-empty line has the correct number of columns. If it does not, it is simply printed to bad data file. If it does, then the line is processed to create an SQLite insert statement to insert into the in-memory database. Furthermore, if any token in the line has single quotes in it, it will escape those.
+The database simply treats all data from the csv file as text for simplicity's sake.
+
+To run the program, compile and run csvParserMain. It expects a single argument from command line which would be the name of the csv file it needs to parse. If it does not get the required argument, or gets more than one argument, it will print a usage statement and gracefully quit.
+
+The program is dependent on SQLite-JDBC, the jar file for which is included in the repo. The program functioned on my machine, at least with the test data provided, so if it fails to compile, or there is some weirdness with the jar dependency, let me know.
